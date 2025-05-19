@@ -1,0 +1,113 @@
+<main class="main">
+    <input (input)="query.set($any($event.target).value)" type="search" placeholder="Enter city...">
+    @if (weatherResource.isLoading()) {
+        <div class="loader">
+            <mat-spinner diameter="25" class="mat-spinner-color"></mat-spinner>
+        </div>
+    } @else if (weatherResource.status() === resourceStatus.Resolved) {
+        <div class="widget">
+            <section class="child">
+                <div class="widget-description">
+                    <h3>{{ weatherResource.value()!.weather[0].description }}</h3>
+                </div>
+                <div class="widget-name">{{ weatherResource.value()!.sys.country | countryName }}, {{ weatherResource.value()!.name }}</div>
+                <div class="widget-image">
+                    <img [src]="urlImg + weatherResource.value()!.weather[0].icon + '@4x.png'" alt="icon">
+                </div>
+                <div class="widget-info">
+                    <span>Температура <h3>{{ weatherResource.value()!.main.temp | number: '0.0-0' }}&deg;C</h3></span>
+                    <span>Влажность <h3>{{ weatherResource.value()!.main.humidity }}%</h3></span>
+                </div>
+            </section>
+            <section class="child">
+                <div class="widget-description">
+                    <h3>Погода на неделю</h3>
+                </div>
+                <div class="widget-name">
+                    <img [src]="'https://flagcdn.com/' + (weatherResource.value()!.sys.country).toLowerCase() + '.svg'" style="border-radius: 16px; height: 40px; width: 60px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" alt="d">
+                </div>
+                <div>
+                    <span> {{ weatherResource.value()!.name }} </span>
+                </div>
+                <div class="widget-days">
+                    @for (day of forecastResource.value(); track day.date) {
+                        <div class="days">
+                            <img style="width: 35px; height: 35px" [src]="urlImg + day.icon + '.png'" alt="icon">
+                            <span>{{ (day.min + day.max) / 2 | number: '0.0-0' }}&deg;C</span>
+                            <span>{{ day.date | date: 'EEE' : undefined:  'ru' | uppercase }}</span>
+                        </div>
+                    }
+                </div>
+            </section>
+            <section class="child">
+                <div class="dasss">
+                    <div class="widget-image-das">
+                        <img [src]="urlImg + weatherResource.value()!.weather[0].icon + '@4x.png'" alt="icon">
+                    </div>
+                    <div class="widget-info-das">
+                        <div class="info-row">
+                            <span class="label">Макс. температура</span>
+                            <span class="value">{{ weatherResource.value()!.main.temp_max | number: '0.0-0' }} &deg;C</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Мин. температура</span>
+                            <span class="value">{{ weatherResource.value()!.main.temp_min | number: '0.0-0'}} &deg;C</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">По ощущениям как</span>
+                            <span class="value">{{ weatherResource.value()!.main.feels_like | number: '0.0-0'}} &deg;C</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Давление</span>
+                            <span class="value">{{ weatherResource.value()!.main.pressure }} мм рт. ст.</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Видимость</span>
+                            <span class="value">{{ weatherResource.value()!.visibility }} м</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Скорость ветра</span>
+                            <span class="value">{{ weatherResource.value()!.wind.speed }} м/с</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    } @else if (weatherResource.error()) {
+        <div class="error">{{ $any(weatherResource.error())?.error.message }}</div>
+    }
+    <div class="buttons">
+        <div>
+        <button
+                class="getWeatherBtn"
+                [disabled]="!query()"
+                (click)="action.next()"
+        >
+            Get weather
+        </button>
+        </div>
+        <div class="btn_details">
+        <button
+                (click)="weatherResource.reload()"
+                class="reloadBtn"
+                mat-icon-button
+                [disabled]="weatherResource.status() === resourceStatus.Idle || weatherResource.error()"
+        >
+            <mat-icon
+            >
+                autorenew
+            </mat-icon>
+        </button>
+        <button
+                class="moreBtn"
+                mat-icon-button
+                [disabled]="weatherResource.status() === resourceStatus.Idle || weatherResource.error()"
+        >
+            <mat-icon
+            >
+                open_in_new
+            </mat-icon>
+        </button>
+        </div>
+    </div>
+</main>

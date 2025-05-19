@@ -1,0 +1,258 @@
+@import "https://fonts.googleapis.com/css?family=Pixelify Sans";
+@import url(https://fonts.googleapis.com/css?family=Didact+Gothic|Comfortaa:400,700&subset=latin,cyrillic);
+
+html, button {
+  font-family: 'Comfortaa', cursive;
+}
+
+img {
+  width: 200px;
+  height: 200px;
+}
+
+div, input {
+  font-family: 'Comfortaa', cursive;
+}
+
+$var-main-shadow: rgba(0, 0, 0, 0.4) 0 2px 4px, rgba(0, 0, 0, 0.3) 0 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+$var-widget-input-shadow: #000 2px 2px 8px 0 inset, #ffc728 -3px -3px 6px 1px inset;
+$var-radius: 1px;
+$var-yellow: #ffc728;
+$var-text-shadow: #000 1px 0 1px;
+
+.main {
+  margin: -8px;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border-radius: $var-radius;
+  border: none;
+  background-color: khaki;
+}
+
+input {
+  font-weight: 500;
+  display: block;
+  margin: 10px;
+  box-sizing: border-box;
+  padding: 10px 7px;
+  border: none;
+  border-radius: $var-radius;
+  font-size: 12px;
+  outline: none;
+  box-shadow: $var-widget-input-shadow;
+  background-color: $var-yellow;
+
+  &::placeholder {
+    transition: opacity 0.4s ease;
+    letter-spacing: 0.9px;
+  }
+
+  &:focus::placeholder {
+    opacity: 0.2;
+  }
+}
+
+.widget {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  //padding-bottom: 1.5rem;
+  text-align: center;
+  height: 350px;
+  box-shadow: $var-widget-input-shadow;
+  margin: 10px;
+  border-radius: $var-radius;
+  background-color: $var-yellow;
+  scroll-snap-type: y mandatory;
+  overflow-x: hidden;
+
+  scrollbar-width: none;
+
+  &-info {
+    font-size: 10px;
+    display: flex;
+    gap: 20px;
+  }
+
+  &-description {
+    text-align: center;
+    font-size: 12px;
+    opacity: 0.8;
+  }
+
+  &-name {
+    padding-top: 5px;
+    font-size: 14px;
+    font-weight: 700;
+    text-shadow: $var-text-shadow;
+  }
+
+  &-image {}
+}
+
+
+.child {
+  padding-top: 20px;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 0 40px 0;
+}
+
+.dasss {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.getWeatherBtn {
+  width: 150px;
+  height: 40px;
+  border: none;
+  background-color: $var-yellow;
+  border-radius: $var-radius;
+  display: block;
+  cursor: pointer;
+  font-weight: 700;
+  box-shadow: $var-main-shadow;
+
+  &:hover {
+    background-color: #ffd834;
+  }
+
+  &:disabled {
+    cursor: default;
+    background-color: #ffd834;
+  }
+}
+
+.reloadBtn {
+  color: black;
+  box-shadow: $var-main-shadow;
+  background-color: #fff;
+
+  &:hover {
+    background-color: #e7e7e7;
+    cursor: pointer;
+  }
+
+  &:disabled {
+    cursor: default;
+    color: #e7e7e7;
+  }
+}
+
+.widget-days {
+  padding-top: 40px;
+  display: flex;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.days {
+  padding: 0 0 10px 0;
+  margin-top: 10px;
+  color: white;
+  background-color: black;
+  height: 120px;
+  border-radius: 16px;
+  width: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  span {
+    text-align: center;
+  }
+}
+
+.moreBtn {
+  color: #000;
+  box-shadow: $var-main-shadow;
+  background-color: #fff;
+
+  &:hover {
+    background-color: #e7e7e7;
+    cursor: pointer;
+  }
+
+  &:disabled {
+    cursor: default;
+    color: #e7e7e7;
+    background-color: #fff;
+  }
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+}
+
+.btn_details {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.loader {
+  margin: 0 auto;
+  padding-bottom: 10px;
+}
+
+.mat-spinner-color::ng-deep circle{
+  stroke: $var-yellow !important;
+  stroke-width: 5px !important;
+}
+
+.error {
+  margin: 0 10px 0 10px;
+  font-weight: 700;
+  color: red;
+  background-color: blanchedalmond;
+  padding: 5px;
+  box-sizing: border-box;
+  font-size: 12px;
+  text-align: center;
+  border-radius: $var-radius;
+}
+
+.widget-image-das {
+  img {
+    width: 130px;
+    height: 130px;
+  }
+}
+
+.widget-info-das {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .value {
+    font-weight: 700;
+    text-align: right;
+  }
+}
+
+mat-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+}
